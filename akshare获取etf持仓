@@ -2,7 +2,7 @@ import akshare as ak
 
 import pandas as pd
 
-df = ak.fund_portfolio_hold_em(symbol="159840", date="2025")
+df = ak.fund_portfolio_hold_em(symbol="159618", date="2025")
 print(df)
 
 print("完成")
@@ -10,7 +10,7 @@ print("完成")
 
 
 # 1. 删除 "占净值比例" 低于 0.05 的行
-df_filtered = df[df['占净值比例'] >= 0.7]
+df_filtered = df[df['占净值比例'] >= 0.6]
 print("\n删除占净值比例低于0.05后的数据:")
 print(df_filtered)
 
@@ -19,6 +19,15 @@ df_final = df_filtered.drop_duplicates(subset=['股票代码'], keep='last')
 print("\n最终处理结果:")
 print(df_final)
 
+
+# 假设 df_final 是过滤后的DataFrame
+# 重置索引从0开始
+df_final = df_final.reset_index(drop=True)
+
+# 添加从1开始的"序号"列
+df_final['序号'] = range(1, len(df_final) + 1)
+
+df_final = df_final[0:50]
 
 print(df_final[0:100])
 
